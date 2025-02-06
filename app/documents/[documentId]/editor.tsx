@@ -4,6 +4,12 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
+import Table from "@tiptap/extension-table";
+import TableCell from "@tiptap/extension-table-cell";
+import ImageResize from "tiptap-extension-resize-image";
+import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
+import Image from "@tiptap/extension-image";
 
 export default function Editor() {
   const editor = useEditor({
@@ -16,13 +22,38 @@ export default function Editor() {
     },
     extensions: [
       StarterKit,
+      Table,
+      TableRow,
+      TableCell,
+      TableHeader,
+      Image,
+      ImageResize,
       TaskItem.configure({
         nested: true,
       }),
       TaskList,
     ],
-    content: "<p>Hello World</p>",
+    content: `
+            <img src="https://placehold.co/800x400" />
+        <img src="https://placehold.co/800x400/6A00F5/white" />
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th colspan="3">Description</th>
+            </tr>
+            <tr>
+              <td>Cyndi Lauper</td>
+              <td>Singer</td>
+              <td>Songwriter</td>
+              <td>Actress</td>
+            </tr>
+          </tbody>
+        </table>
+      `,
   });
+
+  if (!editor) return null;
 
   return (
     <div className="size-full overflow-x-auto bg-[#F9FBFD] p-4 print:p-0 pring:Bg-white print:overflow-visible">
