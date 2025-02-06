@@ -1,5 +1,5 @@
 import Editor from "./Editor";
-import ToolbarComponent from "./toolbar";
+import ToolbarComponent from "./Toolbar";
 
 export default async function DocumentsByIdPage({
   params,

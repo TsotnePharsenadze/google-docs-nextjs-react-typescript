@@ -1,34 +1,42 @@
-import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
+"use client";
 
-interface ToolbarButtonProps {
-  onClick?: () => void;
-  isActive?: boolean;
-  icon: LucideIcon;
-}
-
-const ToolbarButton = ({
-  onClick,
-  isActive,
-  icon: Icon,
-}: ToolbarButtonProps) => {
-  return (
-    <button
-      onClick={onClick}
-      className={cn(
-        "text-sm h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/90",
-        isActive && "bg-neutral-200/80"
-      )}
-    >
-      <Icon className="size-4" />
-    </button>
-  );
-};
+import { LucideIcon, PrinterIcon, Redo2Icon, UndoIcon } from "lucide-react";
+import ToolbarButton from "@/components/toolbar/button";
+import { useEditorStore } from "@/store/use-editor-store";
 
 export default function ToolbarComponent() {
+  const { editor } = useEditorStore();
+
+  const sections: {
+    label: string;
+    icon: LucideIcon;
+    onClick?: () => void;
+    isActive?: boolean;
+  }[][] = [
+    [
+      {
+        label: "Undo",
+        icon: UndoIcon,
+        onClick: () => editor?.chain().focus().undo().run(),
+      },
+      {
+        label: "Redo",
+        icon: Redo2Icon,
+        onClick: () => editor?.chain().focus().redo().run(),
+      },
+      {
+        label: "Print",
+        icon: PrinterIcon,
+        onClick: () => window.print(),
+      },
+    ],
+  ];
+
   return (
-    <div className="bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto">
-      ToolBar
+    <div className="bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto print:hidden">
+      {sections[0].map((item) => (
+        <ToolbarButton key={item.label} {...item} />
+      ))}
     </div>
   );
 }

@@ -247,3 +247,15 @@ body {
     }
   }
 }
+
+@media print {
+  body::before,
+  body::after {
+    display: none;
+  }
+  
+  header,
+  footer {
+    display: none !important;
+  }
+}
