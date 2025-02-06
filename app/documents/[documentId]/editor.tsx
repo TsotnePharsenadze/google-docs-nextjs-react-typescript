@@ -11,6 +11,8 @@ import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import Image from "@tiptap/extension-image";
 import Underline from "@tiptap/extension-underline";
+import TextStyle from "@tiptap/extension-text-style";
+import FontFamily from "@tiptap/extension-font-family";
 import { useEditorStore } from "@/store/use-editor-store";
 
 export default function Editor() {
@@ -57,6 +59,8 @@ export default function Editor() {
       Image,
       ImageResize,
       Underline,
+      TextStyle,
+      FontFamily,
       TaskItem.configure({
         nested: true,
       }),

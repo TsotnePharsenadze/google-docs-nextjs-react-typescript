@@ -8,6 +8,7 @@ import {
   MessageSquareIcon,
   PrinterIcon,
   Redo2Icon,
+  RemoveFormattingIcon,
   SpellCheck,
   UnderlineIcon,
   UndoIcon,
@@ -16,6 +17,7 @@ import ToolbarButton from "@/components/toolbar/button";
 import { useEditorStore } from "@/store/use-editor-store";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
+import { FontFamilyButton } from "@/components/toolbar/FontFamilyButton";
 
 export default function ToolbarComponent() {
   const { editor } = useEditorStore();
@@ -87,6 +89,11 @@ export default function ToolbarComponent() {
         onClick: () => editor?.chain().focus().toggleTaskList().run(),
         isActive: editor?.isActive("taskList"),
       },
+      {
+        label: "Remove formatting",
+        icon: RemoveFormattingIcon,
+        onClick: () => editor?.chain().focus().unsetAllMarks().run(),
+      },
     ],
   ];
 
@@ -99,6 +106,15 @@ export default function ToolbarComponent() {
               <ToolbarButton key={item.label} {...item} />
             ))}
             <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+            {index == 0 && (
+              <>
+                <Separator
+                  orientation="vertical"
+                  className="h-6 bg-neutral-300"
+                />
+                <FontFamilyButton />
+              </>
+            )}
           </React.Fragment>
         );
       })}
