@@ -16,8 +16,8 @@ export default function ToolbarButton({
     <button
       onClick={onClick}
       className={cn(
-        "text-sm h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/90",
-        isActive && "bg-neutral-200/80"
+        "text-sm h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-500/90",
+        isActive && "bg-neutral-500/80 text-white"
       )}
     >
       <Icon className="size-4" />

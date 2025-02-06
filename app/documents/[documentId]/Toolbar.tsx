@@ -1,8 +1,21 @@
 "use client";
 
-import { LucideIcon, PrinterIcon, Redo2Icon, UndoIcon } from "lucide-react";
+import {
+  BoldIcon,
+  ItalicIcon,
+  ListTodoIcon,
+  LucideIcon,
+  MessageSquareIcon,
+  PrinterIcon,
+  Redo2Icon,
+  SpellCheck,
+  UnderlineIcon,
+  UndoIcon,
+} from "lucide-react";
 import ToolbarButton from "@/components/toolbar/button";
 import { useEditorStore } from "@/store/use-editor-store";
+import { Separator } from "@/components/ui/separator";
+import React from "react";
 
 export default function ToolbarComponent() {
   const { editor } = useEditorStore();
@@ -29,14 +42,66 @@ export default function ToolbarComponent() {
         icon: PrinterIcon,
         onClick: () => window.print(),
       },
+      {
+        label: "Spell Check",
+        icon: SpellCheck,
+        onClick: () => {
+          const current = editor?.view.dom.getAttribute("spellcheck");
+          editor?.view.dom.setAttribute(
+            "spellcheck",
+            current == "false" ? "true" : "false"
+          );
+        },
+      },
+    ],
+    [
+      {
+        label: "Bold",
+        icon: BoldIcon,
+        isActive: editor?.isActive("bold"),
+        onClick: () => editor?.chain().focus().toggleBold().run(),
+      },
+      {
+        label: "Italic",
+        icon: ItalicIcon,
+        isActive: editor?.isActive("italic"),
+        onClick: () => editor?.chain().focus().toggleItalic().run(),
+      },
+      {
+        label: "Underline",
+        icon: UnderlineIcon,
+        isActive: editor?.isActive("underline"),
+        onClick: () => editor?.chain().focus().toggleUnderline().run(),
+      },
+    ],
+    [
+      {
+        label: "Comment",
+        icon: MessageSquareIcon,
+        onClick: () => console.log("TODO: Comment"),
+        isActive: false,
+      },
+      {
+        label: "List Todo",
+        icon: ListTodoIcon,
+        onClick: () => editor?.chain().focus().toggleTaskList().run(),
+        isActive: editor?.isActive("taskList"),
+      },
     ],
   ];
 
   return (
     <div className="bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto print:hidden">
-      {sections[0].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
-      ))}
+      {sections.map((section, index) => {
+        return (
+          <React.Fragment key={index}>
+            {section.map((item) => (
+              <ToolbarButton key={item.label} {...item} />
+            ))}
+            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+          </React.Fragment>
+        );
+      })}
     </div>
   );
 }

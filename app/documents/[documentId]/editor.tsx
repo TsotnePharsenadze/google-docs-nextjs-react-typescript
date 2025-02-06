@@ -10,6 +10,7 @@ import ImageResize from "tiptap-extension-resize-image";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import Image from "@tiptap/extension-image";
+import Underline from "@tiptap/extension-underline";
 import { useEditorStore } from "@/store/use-editor-store";
 
 export default function Editor() {
@@ -55,6 +56,7 @@ export default function Editor() {
       TableHeader,
       Image,
       ImageResize,
+      Underline,
       TaskItem.configure({
         nested: true,
       }),
