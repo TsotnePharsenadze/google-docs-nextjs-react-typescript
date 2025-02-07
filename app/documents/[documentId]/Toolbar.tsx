@@ -21,6 +21,9 @@ import { FontFamilyButton } from "@/components/toolbar/FontFamilyButton";
 import { HeadingLevelButton } from "@/components/toolbar/HeadingLevelButton";
 import { TextColorButton } from "@/components/toolbar/TextColorButton";
 import { HighlightColorButton } from "@/components/toolbar/HighlightColorButton";
+import { LinkButton } from "@/components/toolbar/LinkButton";
+import { ImageButton } from "@/components/toolbar/ImageButton";
+import { TextAlignButton } from "@/components/toolbar/TextAlignButton";
 
 export default function ToolbarComponent() {
   const { editor } = useEditorStore();
@@ -116,6 +119,11 @@ export default function ToolbarComponent() {
                   orientation="vertical"
                   className="h-6 bg-neutral-300"
                 />
+                <TextAlignButton />
+                <Separator
+                  orientation="vertical"
+                  className="h-6 bg-neutral-300"
+                />
               </>
             )}
             {index == 2 && (
@@ -131,6 +139,16 @@ export default function ToolbarComponent() {
                   className="h-6 bg-neutral-300"
                 />
                 <HighlightColorButton />
+                <Separator
+                  orientation="vertical"
+                  className="h-6 bg-neutral-300"
+                />
+                <LinkButton />
+                <Separator
+                  orientation="vertical"
+                  className="h-6 bg-neutral-300"
+                />
+                <ImageButton />
                 <Separator
                   orientation="vertical"
                   className="h-6 bg-neutral-300"

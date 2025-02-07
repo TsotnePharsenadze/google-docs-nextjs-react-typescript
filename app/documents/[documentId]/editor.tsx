@@ -15,6 +15,7 @@ import Image from "@tiptap/extension-image";
 import Underline from "@tiptap/extension-underline";
 import TextStyle from "@tiptap/extension-text-style";
 import FontFamily from "@tiptap/extension-font-family";
+import TextAlign from "@tiptap/extension-text-align";
 import { useEditorStore } from "@/store/use-editor-store";
 import Link from "@tiptap/extension-link";
 
@@ -72,6 +73,9 @@ export default function Editor() {
       }),
       ImageResize,
       Underline,
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
       TextStyle,
       FontFamily,
       TaskItem.configure({
