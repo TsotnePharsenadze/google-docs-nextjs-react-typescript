@@ -18,6 +18,7 @@ import FontFamily from "@tiptap/extension-font-family";
 import TextAlign from "@tiptap/extension-text-align";
 import { useEditorStore } from "@/store/use-editor-store";
 import Link from "@tiptap/extension-link";
+import { FontSizeExtension } from "@/extentions/font-size";
 
 export default function Editor() {
   const { setEditor } = useEditorStore();
@@ -57,6 +58,7 @@ export default function Editor() {
     extensions: [
       StarterKit,
       Table,
+      FontSizeExtension,
       TableRow,
       TableCell,
       TableHeader,
