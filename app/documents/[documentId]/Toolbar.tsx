@@ -18,6 +18,9 @@ import { useEditorStore } from "@/store/use-editor-store";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 import { FontFamilyButton } from "@/components/toolbar/FontFamilyButton";
+import { HeadingLevelButton } from "@/components/toolbar/HeadingLevelButton";
+import { TextColorButton } from "@/components/toolbar/TextColorButton";
+import { HighlightColorButton } from "@/components/toolbar/HighlightColorButton";
 
 export default function ToolbarComponent() {
   const { editor } = useEditorStore();
@@ -98,7 +101,7 @@ export default function ToolbarComponent() {
   ];
 
   return (
-    <div className="bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto print:hidden">
+    <div className="bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto print:hidden justify-center">
       {sections.map((section, index) => {
         return (
           <React.Fragment key={index}>
@@ -108,11 +111,30 @@ export default function ToolbarComponent() {
             <Separator orientation="vertical" className="h-6 bg-neutral-300" />
             {index == 0 && (
               <>
+                <FontFamilyButton />
                 <Separator
                   orientation="vertical"
                   className="h-6 bg-neutral-300"
                 />
-                <FontFamilyButton />
+              </>
+            )}
+            {index == 2 && (
+              <>
+                <HeadingLevelButton />
+                <Separator
+                  orientation="vertical"
+                  className="h-6 bg-neutral-300"
+                />
+                <TextColorButton />
+                <Separator
+                  orientation="vertical"
+                  className="h-6 bg-neutral-300"
+                />
+                <HighlightColorButton />
+                <Separator
+                  orientation="vertical"
+                  className="h-6 bg-neutral-300"
+                />
               </>
             )}
           </React.Fragment>

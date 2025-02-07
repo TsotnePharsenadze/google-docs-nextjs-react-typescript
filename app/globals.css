@@ -88,6 +88,14 @@ body {
 }
 
 .tiptap {
+  a {
+    @apply text-sky-600;
+    cursor: pointer;
+    &:hover {
+      @apply underline;
+    }
+  }
+
   ul,
   ol {
     padding: 0.1rem;
@@ -253,7 +261,7 @@ body {
   body::after {
     display: none;
   }
-  
+
   header,
   footer {
     display: none !important;

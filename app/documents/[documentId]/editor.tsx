@@ -2,6 +2,8 @@
 
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { Color } from "@tiptap/extension-color";
+import Highlight from "@tiptap/extension-highlight";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import Table from "@tiptap/extension-table";
@@ -14,6 +16,7 @@ import Underline from "@tiptap/extension-underline";
 import TextStyle from "@tiptap/extension-text-style";
 import FontFamily from "@tiptap/extension-font-family";
 import { useEditorStore } from "@/store/use-editor-store";
+import Link from "@tiptap/extension-link";
 
 export default function Editor() {
   const { setEditor } = useEditorStore();
@@ -57,6 +60,16 @@ export default function Editor() {
       TableCell,
       TableHeader,
       Image,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: "https",
+        protocols: ["http", "https"],
+      }),
+      Color,
+      Highlight.configure({
+        multicolor: true,
+      }),
       ImageResize,
       Underline,
       TextStyle,
