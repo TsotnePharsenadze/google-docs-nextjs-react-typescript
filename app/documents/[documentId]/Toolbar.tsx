@@ -24,6 +24,7 @@ import { HighlightColorButton } from "@/components/toolbar/HighlightColorButton"
 import { LinkButton } from "@/components/toolbar/LinkButton";
 import { ImageButton } from "@/components/toolbar/ImageButton";
 import { TextAlignButton } from "@/components/toolbar/TextAlignButton";
+import { ListButton } from "@/components/toolbar/ListButton";
 
 export default function ToolbarComponent() {
   const { editor } = useEditorStore();
@@ -120,6 +121,11 @@ export default function ToolbarComponent() {
                   className="h-6 bg-neutral-300"
                 />
                 <TextAlignButton />
+                <Separator
+                  orientation="vertical"
+                  className="h-6 bg-neutral-300"
+                />
+                <ListButton />
                 <Separator
                   orientation="vertical"
                   className="h-6 bg-neutral-300"
