@@ -16,6 +16,7 @@ import Underline from "@tiptap/extension-underline";
 import TextStyle from "@tiptap/extension-text-style";
 import FontFamily from "@tiptap/extension-font-family";
 import TextAlign from "@tiptap/extension-text-align";
+import { LineHeightExtension } from "@/extentions/line-height";
 import { useEditorStore } from "@/store/use-editor-store";
 import Link from "@tiptap/extension-link";
 import { FontSizeExtension } from "@/extentions/font-size";
@@ -63,6 +64,10 @@ export default function Editor() {
       TableCell,
       TableHeader,
       Image,
+      LineHeightExtension.configure({
+        types: ["paragraph", "heading"],
+        defaultLineHeight: "normal",
+      }),
       Link.configure({
         openOnClick: false,
         autolink: true,

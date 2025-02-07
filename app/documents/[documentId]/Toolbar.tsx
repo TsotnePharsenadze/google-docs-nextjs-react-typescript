@@ -26,6 +26,7 @@ import { ImageButton } from "@/components/toolbar/ImageButton";
 import { TextAlignButton } from "@/components/toolbar/TextAlignButton";
 import { ListButton } from "@/components/toolbar/ListButton";
 import { FontSizeButton } from "@/components/toolbar/FontSizeButton";
+import { LineHeightButton } from "@/components/toolbar/LineHeightButton";
 
 export default function ToolbarComponent() {
   const { editor } = useEditorStore();
@@ -132,6 +133,11 @@ export default function ToolbarComponent() {
                   className="h-6 bg-neutral-300"
                 />
                 <FontSizeButton />
+                <Separator
+                  orientation="vertical"
+                  className="h-6 bg-neutral-300"
+                />
+                <LineHeightButton />
                 <Separator
                   orientation="vertical"
                   className="h-6 bg-neutral-300"
