@@ -114,11 +114,25 @@ interface MarkerProps {
 }
 
 const Marker = ({ position, isLeft, onMouseDown, isDragging }: MarkerProps) => {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    audioRef.current = new Audio("/laser.mp3");
+  }, []);
+
+  const handleMouseDownAug = () => {
+    onMouseDown();
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    }
+  };
+
   return (
     <div
       className="absolute top-0 w-4 h-full cursor-ew-resize z-[5] group -ml-2"
       style={{ [isLeft ? "left" : "right"]: `${position}px` }}
-      onMouseDown={onMouseDown}
+      onMouseDown={handleMouseDownAug}
     >
       <ArrowBigDown className="absolute left-1/2 top-0 h-full fill-blue-500 transform -translate-x-1/2" />
       <div
