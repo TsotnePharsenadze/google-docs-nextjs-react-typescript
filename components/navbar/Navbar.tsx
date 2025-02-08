@@ -14,6 +14,7 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import {
+  Bold,
   FileIcon,
   FileJson,
   FilePenIcon,
@@ -21,8 +22,16 @@ import {
   FileSearch2,
   FileText,
   Globe,
+  Italic,
   Printer,
+  Redo2Icon,
+  RemoveFormatting,
+  Strikethrough,
+  Table2Icon,
+  Text,
   Trash2Icon,
+  Underline,
+  Undo2Icon,
 } from "lucide-react";
 import { MenubarSubContent, MenubarSubTrigger } from "@/components/ui/menubar";
 import { getControlKeyEmoji } from "@/lib/utils";
@@ -95,8 +104,18 @@ const Navbar = () => {
               </MenubarTrigger>
               <MenubarContent className="print:hidden">
                 <MenubarItem>
-                  <FileIcon className="size-4 mr-2" />
-                  Save
+                  <Undo2Icon className="size-4 mr-2" />
+                  Undo
+                  <MenubarShortcut className="bg-neutral-100 p-1 rounded-md">
+                    <code>{getControlKeyEmoji()} + Z</code>
+                  </MenubarShortcut>
+                </MenubarItem>
+                <MenubarItem>
+                  <Redo2Icon className="size-4 mr-2" />
+                  Redo
+                  <MenubarShortcut className="bg-neutral-100 p-1 rounded-md">
+                    <code>{getControlKeyEmoji()} + R</code>
+                  </MenubarShortcut>
                 </MenubarItem>
               </MenubarContent>
             </MenubarMenu>
@@ -105,10 +124,19 @@ const Navbar = () => {
                 Insert
               </MenubarTrigger>
               <MenubarContent className="print:hidden">
-                <MenubarItem>
-                  <FileIcon className="size-4 mr-2" />
-                  Save
-                </MenubarItem>
+                <MenubarSub>
+                  <MenubarSubTrigger>
+                    <Table2Icon className="size-4 mr-2" />
+                    Table
+                  </MenubarSubTrigger>
+                  <MenubarSubContent>
+                    {Array.from({ length: 4 }, (_, i) => (
+                      <MenubarItem key={i}>
+                        Row x Column: {i + 1}x{i + 1}
+                      </MenubarItem>
+                    ))}
+                  </MenubarSubContent>
+                </MenubarSub>
               </MenubarContent>
             </MenubarMenu>
             <MenubarMenu>
@@ -116,9 +144,49 @@ const Navbar = () => {
                 Format
               </MenubarTrigger>
               <MenubarContent className="print:hidden">
+                <MenubarSub>
+                  <MenubarSubTrigger>
+                    <Text className="size-4 mr-2" />
+                    Text
+                  </MenubarSubTrigger>
+                  <MenubarSubContent>
+                    <MenubarItem>
+                      <Bold className="size-4 mr-2" />
+                      Bold
+                      <MenubarShortcut className="bg-neutral-100 p-1 rounded-md">
+                        <code>{getControlKeyEmoji()} + B</code>
+                      </MenubarShortcut>
+                    </MenubarItem>
+                    <MenubarItem>
+                      <Italic className="size-4 mr-2" />
+                      Italic
+                      <MenubarShortcut className="bg-neutral-100 p-1 rounded-md">
+                        <code>{getControlKeyEmoji()} + I</code>
+                      </MenubarShortcut>
+                    </MenubarItem>
+                    <MenubarItem>
+                      <Underline className="size-4 mr-2" />
+                      Underline
+                      <MenubarShortcut className="bg-neutral-100 p-1 rounded-md">
+                        <code>{getControlKeyEmoji()} + U</code>
+                      </MenubarShortcut>
+                    </MenubarItem>
+                    <MenubarItem>
+                      <Strikethrough className="size-4 mr-2" />
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: "Strikethrough &nbsp;&nbsp;",
+                        }}
+                      />
+                      <MenubarShortcut className="bg-neutral-100 p-1 rounded-md">
+                        <code>{getControlKeyEmoji()} + S</code>
+                      </MenubarShortcut>
+                    </MenubarItem>
+                  </MenubarSubContent>
+                </MenubarSub>
                 <MenubarItem>
-                  <FileIcon className="size-4 mr-2" />
-                  Save
+                  <RemoveFormatting className="size-4 mr-2" />
+                  Remove Formatting
                 </MenubarItem>
               </MenubarContent>
             </MenubarMenu>
