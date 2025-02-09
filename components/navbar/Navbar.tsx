@@ -35,8 +35,60 @@ import {
 } from "lucide-react";
 import { MenubarSubContent, MenubarSubTrigger } from "@/components/ui/menubar";
 import { getControlKeyEmoji } from "@/lib/utils";
+import { useEditorStore } from "@/store/use-editor-store";
 
 const Navbar = () => {
+  const { editor } = useEditorStore();
+
+  const insertTable = ({ row, column }: { row: number; column: number }) => {
+    editor
+      ?.chain()
+      .focus()
+      .insertTable({ rows: row, cols: column, withHeaderRow: false })
+      .run();
+  };
+
+  const onDownload = (blob: Blob, filename: string) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+  };
+
+  const onSaveJSON = () => {
+    if (!editor) return null;
+
+    const content = editor?.getJSON();
+    const blob = new Blob([JSON.stringify(content)], {
+      type: "application/json",
+    });
+
+    onDownload(blob, "document.json");
+  };
+
+  const onSaveHTML = () => {
+    if (!editor) return null;
+
+    const content = editor?.getHTML();
+    const blob = new Blob([content], {
+      type: "text/html",
+    });
+
+    onDownload(blob, "document.html");
+  };
+
+  const onSaveText = () => {
+    if (!editor) return null;
+
+    const content = editor?.getText();
+    const blob = new Blob([content], {
+      type: "text/plain",
+    });
+
+    onDownload(blob, "document.txt");
+  };
+
   return (
     <nav className="flex items-center p-2 gap-2 bg-neutral-100 pl-10">
       <Link href="/" className="flex justify-center items-center">
@@ -57,19 +109,19 @@ const Navbar = () => {
                     Save
                   </MenubarSubTrigger>
                   <MenubarSubContent>
-                    <MenubarItem>
+                    <MenubarItem onClick={() => onSaveJSON()}>
                       <FileJson className="size-4 mr-2" />
                       JSON
                     </MenubarItem>
-                    <MenubarItem>
+                    <MenubarItem onClick={() => onSaveHTML()}>
                       <Globe className="size-4 mr-2" />
                       HTML
                     </MenubarItem>
-                    <MenubarItem>
+                    <MenubarItem onClick={() => window.print()}>
                       <FileSearch2 className="size-4 mr-2" />
                       PDF
                     </MenubarItem>
-                    <MenubarItem>
+                    <MenubarItem onClick={() => onSaveText()}>
                       <FileText className="size-4 mr-2" />
                       Text
                     </MenubarItem>
@@ -104,14 +156,20 @@ const Navbar = () => {
               </MenubarTrigger>
               <MenubarContent className="print:hidden">
                 <MenubarItem>
-                  <Undo2Icon className="size-4 mr-2" />
+                  <Undo2Icon
+                    className="size-4 mr-2"
+                    onClick={() => editor?.chain().focus().undo().run()}
+                  />
                   Undo
                   <MenubarShortcut className="bg-neutral-100 p-1 rounded-md">
                     <code>{getControlKeyEmoji()} + Z</code>
                   </MenubarShortcut>
                 </MenubarItem>
                 <MenubarItem>
-                  <Redo2Icon className="size-4 mr-2" />
+                  <Redo2Icon
+                    className="size-4 mr-2"
+                    onClick={() => editor?.chain().focus().redo().run()}
+                  />
                   Redo
                   <MenubarShortcut className="bg-neutral-100 p-1 rounded-md">
                     <code>{getControlKeyEmoji()} + R</code>
@@ -131,7 +189,12 @@ const Navbar = () => {
                   </MenubarSubTrigger>
                   <MenubarSubContent>
                     {Array.from({ length: 4 }, (_, i) => (
-                      <MenubarItem key={i}>
+                      <MenubarItem
+                        key={i}
+                        onClick={() =>
+                          insertTable({ row: i + 1, column: i + 1 })
+                        }
+                      >
                         Row x Column: {i + 1}x{i + 1}
                       </MenubarItem>
                     ))}
@@ -150,28 +213,42 @@ const Navbar = () => {
                     Text
                   </MenubarSubTrigger>
                   <MenubarSubContent>
-                    <MenubarItem>
+                    <MenubarItem
+                      onClick={() => editor?.chain().focus().toggleBold().run()}
+                    >
                       <Bold className="size-4 mr-2" />
                       Bold
                       <MenubarShortcut className="bg-neutral-100 p-1 rounded-md">
                         <code>{getControlKeyEmoji()} + B</code>
                       </MenubarShortcut>
                     </MenubarItem>
-                    <MenubarItem>
+                    <MenubarItem
+                      onClick={() =>
+                        editor?.chain().focus().toggleItalic().run()
+                      }
+                    >
                       <Italic className="size-4 mr-2" />
                       Italic
                       <MenubarShortcut className="bg-neutral-100 p-1 rounded-md">
                         <code>{getControlKeyEmoji()} + I</code>
                       </MenubarShortcut>
                     </MenubarItem>
-                    <MenubarItem>
+                    <MenubarItem
+                      onClick={() =>
+                        editor?.chain().focus().toggleUnderline().run()
+                      }
+                    >
                       <Underline className="size-4 mr-2" />
                       Underline
                       <MenubarShortcut className="bg-neutral-100 p-1 rounded-md">
                         <code>{getControlKeyEmoji()} + U</code>
                       </MenubarShortcut>
                     </MenubarItem>
-                    <MenubarItem>
+                    <MenubarItem
+                      onClick={() =>
+                        editor?.chain().focus().toggleStrike().run()
+                      }
+                    >
                       <Strikethrough className="size-4 mr-2" />
                       <span
                         dangerouslySetInnerHTML={{
@@ -184,7 +261,9 @@ const Navbar = () => {
                     </MenubarItem>
                   </MenubarSubContent>
                 </MenubarSub>
-                <MenubarItem>
+                <MenubarItem
+                  onClick={() => editor?.chain().focus().unsetAllMarks().run()}
+                >
                   <RemoveFormatting className="size-4 mr-2" />
                   Remove Formatting
                 </MenubarItem>
