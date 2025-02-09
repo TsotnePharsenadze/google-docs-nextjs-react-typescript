@@ -3,6 +3,15 @@ import "./globals.css";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { KeySheet } from "@/components/keySheet/KeySheet";
 import { ConvexClientProvider } from "@/context-providers/ConvexClientProvider";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
+
 
 export const metadata: Metadata = {
   title: "GoogleDOCS Clone",
@@ -18,10 +27,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`antialiased`}>
         <NuqsAdapter>
+          <ClerkProvider>
           <ConvexClientProvider>
             <KeySheet />
             {children}
           </ConvexClientProvider>
+          </ClerkProvider>
         </NuqsAdapter>
       </body>
     </html>

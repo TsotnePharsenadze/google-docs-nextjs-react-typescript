@@ -1,6 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import SearchInput from "./SearchInput";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+import { Button } from "../ui/button";
 
 const HomeNavbar = () => {
   return (
@@ -12,7 +20,9 @@ const HomeNavbar = () => {
         <b>DOCS</b>
       </div>
       <SearchInput />
-      <div />
+      <div>
+        <UserButton />
+      </div>
     </div>
   );
 };
