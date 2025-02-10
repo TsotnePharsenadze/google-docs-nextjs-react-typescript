@@ -1,14 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import SearchInput from "./SearchInput";
-import {
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
-import { Button } from "../ui/button";
+import { UserButton } from "@clerk/nextjs";
 
 const HomeNavbar = () => {
   return (

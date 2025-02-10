@@ -23,9 +23,23 @@ export const create = mutation({
 export const listDocuments = query({
   args: {
     paginationOpts: paginationOptsValidator,
+    title: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    return await ctx.db.query("documents").paginate(args.paginationOpts);
+    const user = await ctx.auth.getUserIdentity();
+    if (!user) throw new ConvexError("Unauthorized actions");
+    if (args.title) {
+      return await ctx.db
+        .query("documents")
+        .withSearchIndex("search_title", (q) =>
+          q.search("title", args.title as string).eq("ownerId", user.subject)
+        )
+        .paginate(args.paginationOpts);
+    }
+    return await ctx.db
+      .query("documents")
+      .withIndex("by_owner_id", (q) => q.eq("ownerId", user.subject))
+      .paginate(args.paginationOpts);
   },
 });
 
