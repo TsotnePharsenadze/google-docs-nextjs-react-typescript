@@ -9,8 +9,36 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useState } from "react";
 
 const TemplateGallery = () => {
+  const router = useRouter();
+  const create = useMutation(api.documents.create);
+  const [isCreating, setIsCreating] = useState<boolean>(false);
+
+  const handleTemplateClick = ({
+    title,
+    initialContent,
+  }: {
+    title: string;
+    initialContent: string;
+  }) => {
+    setIsCreating(true);
+    create({
+      title,
+      initialContent,
+    })
+      .then((documentId) => {
+        router.push(`/documents/${documentId}`);
+      })
+      .finally(() => {
+        setIsCreating(false);
+      });
+  };
+
   return (
     <div className="max-w-screen-xl w-full mx-auto bg-neutral-100 min-h-[300px] h-full rounded-md mt-4 px-16 py-6">
       <h1 className="font-bold text-2xl">Create new document</h1>
@@ -30,6 +58,12 @@ const TemplateGallery = () => {
                     backgroundRepeat: "no-repeat",
                   }}
                   className="size-full hover:border-blue-500 border-2 bg-white hover:bg-white transition"
+                  onClick={() => {
+                    handleTemplateClick({
+                      title: template.label,
+                      initialContent: "",
+                    });
+                  }}
                 />
                 <p>{template.label}</p>
               </div>

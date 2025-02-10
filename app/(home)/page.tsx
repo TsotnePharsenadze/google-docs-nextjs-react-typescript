@@ -14,7 +14,9 @@ export default function Home() {
       </div>
       <div className="mt-16">
         <TemplateGallery />
-        {documents?.map((document) => <h1>{document.title}</h1>)}
+        {documents?.map((document) => (
+          <h1 key={document?._id}>{document.title}</h1>
+        ))}
       </div>
     </div>
   );
