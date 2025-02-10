@@ -49,3 +49,27 @@ export const deleteDocument = mutation({
     return await ctx.db.delete(args.documentId);
   },
 });
+
+export const updateDocument = mutation({
+  args: {
+    documentId: v.id("documents"),
+    documentTitle: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.auth.getUserIdentity();
+
+    if (!user) throw new ConvexError("Unauthorized Action");
+
+    const document = await ctx.db.get(args.documentId);
+
+    if (!document) throw new ConvexError("Document doesn't exists");
+
+    const isOwner = user?.subject === document.ownerId;
+
+    if (!isOwner) throw new ConvexError("Unauthorized Action");
+
+    return await ctx.db.patch(args.documentId, {
+      title: args.documentTitle,
+    });
+  },
+});

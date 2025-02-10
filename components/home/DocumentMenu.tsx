@@ -6,13 +6,13 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { MoreVertical, Trash2Icon, WebhookIcon } from "lucide-react";
+import { MoreVertical, PenIcon, Trash2Icon, WebhookIcon } from "lucide-react";
 import DocumentDeleteModal from "./DocumentDeleteModal";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useState } from "react";
-import { Toast } from "../ui/toast";
 import { useToast } from "@/hooks/use-toast";
+import DocumentRenameModal from "./DocumentRenameModal";
 
 interface DocumentMenuInterface {
   documentId: Id<"documents"> | undefined;
@@ -30,6 +30,10 @@ const DocumentMenu = ({
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
+  const renameDocument = useMutation(api.documents.updateDocument);
+  const [isRenaming, setIsRenaming] = useState<boolean>(false);
+  const [isRenameModalOpen, setIsRenameModalOpen] = useState<boolean>(false);
+
   const onDelete = () => {
     setIsDeleting(true);
     deleteDocument({ documentId: documentId as Id<"documents"> })
@@ -38,10 +42,40 @@ const DocumentMenu = ({
           variant: "default",
           title: "Document deleted successfully ✔",
         });
-        setIsDeleteModalOpen(true);
+        setIsDeleteModalOpen(false);
+        setTimeout(() => {
+          const button = document.querySelector("[toast-close]");
+          if (button) {
+            (button as HTMLButtonElement).click();
+          }
+        }, 2500);
       })
       .finally(() => {
         setIsDeleting(false);
+      });
+  };
+
+  const onUpdate = (newTitle: string) => {
+    setIsRenaming(true);
+    renameDocument({
+      documentId: documentId as Id<"documents">,
+      documentTitle: newTitle as string,
+    })
+      .then(() => {
+        toast({
+          variant: "default",
+          title: "Document renamed successfully ✔",
+        });
+        setIsRenameModalOpen(false);
+        setTimeout(() => {
+          const button = document.querySelector("[toast-close]");
+          if (button) {
+            (button as HTMLButtonElement).click();
+          }
+        }, 2500);
+      })
+      .finally(() => {
+        setIsRenaming(false);
       });
   };
 
@@ -54,16 +88,30 @@ const DocumentMenu = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>
-          <Button variant="ghost" onClick={() => onNewTab(documentId!)}>
-            <WebhookIcon /> Open this in new tab
+          <Button
+            variant="ghost"
+            onClick={() => onNewTab(documentId!)}
+            className="flex justify-between flex-1"
+          >
+            <span>Open this in new tab</span> <WebhookIcon />
+          </Button>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Button
+            variant="ghost"
+            onClick={() => setIsRenameModalOpen(true)}
+            className="flex justify-between flex-1"
+          >
+            <span>Rename this document</span> <PenIcon />
           </Button>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Button
             variant="destructive"
             onClick={() => setIsDeleteModalOpen(true)}
+            className="flex justify-between flex-1"
           >
-            <Trash2Icon /> Delete this document
+            <span>Delete this document</span> <Trash2Icon />
           </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -73,6 +121,13 @@ const DocumentMenu = ({
         isDeleting={isDeleting}
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}
+      />
+      <DocumentRenameModal
+        title={title}
+        onUpdate={onUpdate}
+        isRenaming={isRenaming}
+        isOpen={isRenameModalOpen}
+        setIsOpen={setIsRenameModalOpen}
       />
     </DropdownMenu>
   );

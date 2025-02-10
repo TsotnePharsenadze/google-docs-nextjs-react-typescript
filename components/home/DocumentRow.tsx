@@ -19,8 +19,20 @@ const DocumentRow = ({ document }: DocumentRowInterface) => {
     <TableRow>
       <TableCell>
         <div className="flex gap-x-2 items-center">
-          <SiGoogledocs className="size-6 fill-blue-500" />
-          <p>{document?.title}</p>
+          <SiGoogledocs
+            className="size-6 fill-blue-500 peer cursor-pointer"
+            onClick={() => {
+              onNewTab(document?._id as Id<"documents">);
+            }}
+          />
+          <p
+            className="peer-hover:underline hover:underline cursor-pointer"
+            onClick={() => {
+              onNewTab(document?._id as Id<"documents">);
+            }}
+          >
+            {document?.title}
+          </p>
         </div>
       </TableCell>
       <TableCell>{"\u00A0"}</TableCell>

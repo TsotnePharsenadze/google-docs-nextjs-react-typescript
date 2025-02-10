@@ -15,21 +15,21 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Separator } from "../ui/separator";
 
-interface DocumentDeleteModal {
+interface DocumentRenameModal {
   title: string | undefined;
-  onDelete: () => void;
-  isDeleting: boolean;
+  onUpdate: (newTitle: string) => void;
+  isRenaming: boolean;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const DocumentDeleteModal = ({
+const DocumentRenameModal = ({
   title,
-  onDelete,
-  isDeleting,
+  onUpdate,
+  isRenaming,
   isOpen,
   setIsOpen,
-}: DocumentDeleteModal) => {
+}: DocumentRenameModal) => {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
 
@@ -37,10 +37,11 @@ const DocumentDeleteModal = ({
     setValue(e.target.value);
   };
 
-  const handleOnDelete = () => {
-    if (value === "DELETE") {
-      onDelete();
-    } else {
+  const handleOnUpdate = () => {
+    try {
+      onUpdate(value);
+    } catch (e) {
+      console.error(e);
       setError("Incorrect keyword");
     }
   };
@@ -49,19 +50,12 @@ const DocumentDeleteModal = ({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent>
         <DialogTitle>
-          Are you sure you want to delete "<b>{title}</b>" document?
+          <b>{title}</b>
         </DialogTitle>
-        <DialogHeader className="text-muted-foreground italic">
-          Note that you won't be able to recover deleted document
-        </DialogHeader>
-        <span>
-          Please write{" "}
-          <span className="text-red-500 uppercase font-black">"DELETE"</span>{" "}
-          below to confirm your action
-        </span>
+        <span>New title:</span>
         {error && (
           <p className="text-red-500 text-sm font-semibold">
-            Incorrect keyword make sure its "DELETE" in uppercase
+            Something went wrong! try again later!
           </p>
         )}
         <Input
@@ -72,14 +66,14 @@ const DocumentDeleteModal = ({
         <Separator />
         <DialogFooter>
           <Button
-            variant="destructive"
-            className={cn(isDeleting && "bg-opacity-70 cursor-none")}
-            onClick={() => handleOnDelete()}
+            variant="default"
+            className={cn(isRenaming && "bg-opacity-70 cursor-none")}
+            onClick={() => handleOnUpdate()}
           >
-            {isDeleting ? (
+            {isRenaming ? (
               <Loader2Icon className="animate-spin h-4 w-4" />
             ) : (
-              "DELETE"
+              "UPDATE"
             )}
           </Button>
         </DialogFooter>
@@ -88,4 +82,4 @@ const DocumentDeleteModal = ({
   );
 };
 
-export default DocumentDeleteModal;
+export default DocumentRenameModal;
