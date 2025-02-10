@@ -10,8 +10,8 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
-} from '@clerk/nextjs'
-
+} from "@clerk/nextjs";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "GoogleDOCS Clone",
@@ -28,10 +28,11 @@ export default function RootLayout({
       <body className={`antialiased`}>
         <NuqsAdapter>
           <ClerkProvider>
-          <ConvexClientProvider>
-            <KeySheet />
-            {children}
-          </ConvexClientProvider>
+            <ConvexClientProvider>
+              <KeySheet />
+              {children}
+              <Toaster />
+            </ConvexClientProvider>
           </ClerkProvider>
         </NuqsAdapter>
       </body>
