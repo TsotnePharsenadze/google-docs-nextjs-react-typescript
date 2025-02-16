@@ -69,7 +69,7 @@ export default function Editor() {
         defaultLineHeight: "normal",
       }),
       Link.configure({
-        openOnClick: false,
+        openOnClick: true,
         autolink: true,
         defaultProtocol: "https",
         protocols: ["http", "https"],

@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useState } from "react";
+import { Loader2Icon } from "lucide-react";
 
 const TemplateGallery = () => {
   const router = useRouter();
@@ -42,8 +43,11 @@ const TemplateGallery = () => {
   return (
     <div className="max-w-screen-xl w-full mx-auto bg-neutral-100 min-h-[300px] h-full rounded-md mt-4 px-16 py-6">
       <h1 className="font-bold text-2xl">Create new document</h1>
-      <Carousel className="mt-6">
-        <CarouselContent>
+      <Carousel className="mt-6 relative">
+        {isCreating && (
+          <Loader2Icon className="animate-spin h-9 w-9 z-50 absolute left-[50%] top-1/3" />
+        )}
+        <CarouselContent aria-disabled={isCreating}>
           {templates.map((template) => (
             <CarouselItem
               key={template.id}
@@ -57,13 +61,14 @@ const TemplateGallery = () => {
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                   }}
-                  className="size-full hover:border-blue-500 border-2 bg-white hover:bg-white transition"
+                  className={`size-full hover:border-blue-500 border-2 bg-white hover:bg-white transition ${isCreating && "opacity-85"}`}
                   onClick={() => {
                     handleTemplateClick({
                       title: template.label,
                       initialContent: "",
                     });
                   }}
+                  disabled={isCreating}
                 />
                 <p>{template.label}</p>
               </div>

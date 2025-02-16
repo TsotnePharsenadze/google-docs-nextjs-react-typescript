@@ -50,6 +50,19 @@ const DocumentMenu = ({
           }
         }, 2500);
       })
+      .catch(() => {
+        toast({
+          variant: "destructive",
+          title: "Unauthorized action ❌",
+        });
+        setIsDeleteModalOpen(false);
+        setTimeout(() => {
+          const button = document.querySelector("[toast-close]");
+          if (button) {
+            (button as HTMLButtonElement).click();
+          }
+        }, 2500);
+      })
       .finally(() => {
         setIsDeleting(false);
       });
@@ -67,6 +80,19 @@ const DocumentMenu = ({
           title: "Document renamed successfully ✔",
         });
         setIsRenameModalOpen(false);
+        setTimeout(() => {
+          const button = document.querySelector("[toast-close]");
+          if (button) {
+            (button as HTMLButtonElement).click();
+          }
+        }, 2500);
+      })
+      .catch(() => {
+        toast({
+          variant: "destructive",
+          title: "Unauthorized action ❌",
+        });
+        setIsDeleteModalOpen(false);
         setTimeout(() => {
           const button = document.querySelector("[toast-close]");
           if (button) {

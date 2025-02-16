@@ -33,7 +33,7 @@ export const FontSizeButton = () => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (~~e.target.value > 0 && ~~e.target.value <= 50) {
+    if (~~e.target.value > 0 && ~~e.target.value <= 1639) {
       setInputValue(e.target.value);
     }
   };

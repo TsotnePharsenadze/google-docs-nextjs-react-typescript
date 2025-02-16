@@ -13,7 +13,7 @@ export default function Home() {
     api.documents.listDocuments,
     { title: search as unknown as string },
     {
-      initialNumItems: 5,
+      initialNumItems: 15,
     }
   );
 
