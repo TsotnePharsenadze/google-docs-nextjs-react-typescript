@@ -2,6 +2,7 @@ import Ruler from "@/components/Ruler";
 import Editor from "./Editor";
 import ToolbarComponent from "./Toolbar";
 import Navbar from "@/components/navbar/Navbar";
+import { Room } from "./Room";
 
 export default async function DocumentsByIdPage({
   params,
@@ -19,8 +20,9 @@ export default async function DocumentsByIdPage({
         <ToolbarComponent />
       </div>
       <div className="pt-[125px] print:pt-0">
-        <Ruler />
-        <Editor />
+        <Room>
+          <Editor />
+        </Room>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ const HomeNavbar = () => {
         <b>DOCS</b>
       </div>
       <SearchInput />
-      <div>
+      <div className="flex items-center gap-2 p-2">
         <OrganizationSwitcher
           afterCreateOrganizationUrl={"/"}
           afterLeaveOrganizationUrl={"/"}

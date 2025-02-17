@@ -20,9 +20,15 @@ import { LineHeightExtension } from "@/extentions/line-height";
 import { useEditorStore } from "@/store/use-editor-store";
 import Link from "@tiptap/extension-link";
 import { FontSizeExtension } from "@/extentions/font-size";
+import {
+  useLiveblocksExtension,
+  FloatingComposer,
+} from "@liveblocks/react-tiptap";
+import { Threads } from "./Threads";
 
 export default function Editor() {
   const { setEditor } = useEditorStore();
+  const liveblocks = useLiveblocksExtension();
   const editor = useEditor({
     onCreate({ editor }) {
       setEditor(editor);
@@ -57,7 +63,10 @@ export default function Editor() {
     },
     immediatelyRender: false,
     extensions: [
-      StarterKit,
+      liveblocks,
+      StarterKit.configure({
+        history: false,
+      }),
       Table,
       FontSizeExtension,
       TableRow,
@@ -116,6 +125,8 @@ export default function Editor() {
     <div className="size-full overflow-x-auto bg-[#F9FBFD] p-4 print:p-0 pring:Bg-white print:overflow-visible">
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 print:w-full mx-auto print:min-w-0">
         <EditorContent editor={editor} />
+        <Threads editor={editor} />
+        <FloatingComposer editor={editor} />
       </div>
     </div>
   );

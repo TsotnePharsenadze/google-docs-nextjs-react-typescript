@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
+import "@liveblocks/react-ui/styles.css";
+import "@liveblocks/react-tiptap/styles.css";
 import "./globals.css";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { KeySheet } from "@/components/keySheet/KeySheet";
 import { ConvexClientProvider } from "@/context-providers/ConvexClientProvider";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
