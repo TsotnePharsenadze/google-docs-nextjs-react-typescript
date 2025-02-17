@@ -8,6 +8,7 @@ import { useSearchParam } from "@/hooks/use-search-param";
 import { usePaginatedQuery } from "convex/react";
 
 export default function Home() {
+  throw new Error("test");
   const [search] = useSearchParam("search");
   const { results, status, loadMore } = usePaginatedQuery(
     api.documents.listDocuments,

@@ -14,8 +14,9 @@ export function Room({ children }: { children: ReactNode }) {
   const key =
     process.env.NEXT_PUBLIC_LIVEBLOCKS_KEY ??
     "pk_dev_oSHTnphyqTZvToRfWSnOHc4DClVHaJiBXqblkpQIvh0R9aOmKQXs3caKsKxlAZvf";
+  const privateKey = process.env.LIVEBLOCKS_PRIVATE_KEY;
   return (
-    <LiveblocksProvider publicApiKey={key}>
+    <LiveblocksProvider throttle={16} authEndpoint={"/api/liveblocks-sync"}>
       <RoomProvider id={params.documentId as string}>
         <ClientSideSuspense fallback={<Loading />}>
           {children}
