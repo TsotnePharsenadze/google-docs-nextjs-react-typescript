@@ -24,7 +24,8 @@ export async function POST(req: Request) {
       });
     }
 
-    const { roomId } = await req.json();
+    const { room: roomId } = await req.json();
+
     if (!roomId) {
       return new Response("Missing room id", {
         status: 400,

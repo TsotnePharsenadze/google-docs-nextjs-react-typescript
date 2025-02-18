@@ -37,6 +37,7 @@ import { MenubarSubContent, MenubarSubTrigger } from "@/components/ui/menubar";
 import { getControlKeyEmoji } from "@/lib/utils";
 import { useEditorStore } from "@/store/use-editor-store";
 import { OrganizationSwitcher, UserButton } from "@clerk/clerk-react";
+import Avatar from "../../app/documents/[documentId]/AvatarList";
 
 const Navbar = () => {
   const { editor } = useEditorStore();
@@ -280,6 +281,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className="flex gap-2 p-2 items-center">
+        <Avatar />
         <OrganizationSwitcher />
         <UserButton />
       </div>

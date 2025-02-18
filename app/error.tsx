@@ -20,7 +20,7 @@ export default function GlobalErrorPage({
       <div className="flex-col space-y-6">
         <div className="flex flex-col space-y-2 items-center">
           <div className="bg-rose-100 p-4 rounded-full">
-            <TriangleAlert className="size-12" />
+            <TriangleAlert className="size-12 text-red-600" />
           </div>
           <h1 className="text-xl font-black">Oops! something went wrong</h1>
           <p className="text-sm text-gray-600">
