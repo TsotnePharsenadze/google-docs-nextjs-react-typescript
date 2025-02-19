@@ -21,9 +21,6 @@ interface User {
 
 export function Room({ children }: { children: ReactNode }) {
   const params = useParams();
-  const key =
-    process.env.NEXT_PUBLIC_LIVEBLOCKS_KEY ??
-    "pk_dev_oSHTnphyqTZvToRfWSnOHc4DClVHaJiBXqblkpQIvh0R9aOmKQXs3caKsKxlAZvf";
 
   const [users, setUsers] = useState<User[]>([]);
 

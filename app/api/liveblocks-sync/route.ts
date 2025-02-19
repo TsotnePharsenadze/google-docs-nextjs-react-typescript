@@ -61,8 +61,7 @@ export async function POST(req: Request) {
     session?.allow(roomId, session?.FULL_ACCESS);
     const { body, status } = await session?.authorize();
     return new Response(body, { status });
-  } catch (e: any) {
-    console.error(e);
+  } catch {
     return new Response("Internal Error at liveblocks-sync @POST", {
       status: 500,
     });

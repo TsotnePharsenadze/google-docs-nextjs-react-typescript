@@ -48,19 +48,19 @@ const DocumentDeleteModal = ({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent>
         <DialogTitle>
-          Are you sure you want to delete "<b>{title}</b>" document?
+          Are you sure you want to delete &quot;<b>{title}</b>&quot; document?
         </DialogTitle>
         <DialogHeader className="text-muted-foreground italic">
-          Note that you won't be able to recover deleted document
+          Note that you won&apos;t be able to recover deleted document
         </DialogHeader>
         <span>
           Please write{" "}
-          <span className="text-red-500 uppercase font-black">"DELETE"</span>{" "}
+          <span className="text-red-500 uppercase font-black">&quot;DELETE&quot;</span>{" "}
           below to confirm your action
         </span>
         {error && (
           <p className="text-red-500 text-sm font-semibold">
-            Incorrect keyword make sure its "DELETE" in uppercase
+            Incorrect keyword make sure its &quot;DELETE&quot; in uppercase
           </p>
         )}
         <Input

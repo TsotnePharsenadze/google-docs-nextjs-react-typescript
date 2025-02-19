@@ -46,7 +46,7 @@ const DocumentRow = ({ document }: DocumentRowInterface) => {
       </TableCell>
       <TableCell>
         <div className="flex items-center">
-          {new Date(document?._creationTime!).toDateString()}
+          {new Date(document?._creationTime ?? 0).toDateString()}
         </div>
       </TableCell>
       <TableCell className="flex justify-end">

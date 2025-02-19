@@ -40,7 +40,7 @@ function InboxList() {
         <div className="overflow-x-scroll">
           {inboxNotifications.length > 0 ? (
             <InboxNotificationList>
-              {inboxNotifications.map((inboxNotification: any) => (
+              {inboxNotifications.map((inboxNotification) => (
                 <InboxNotification
                   key={inboxNotification.id}
                   inboxNotification={inboxNotification}

@@ -185,7 +185,7 @@ const Navbar = ({ data }: { data: Doc<"documents"> }) => {
   const router = useRouter();
   const create = useMutation(api.documents.create);
   const [isCreating, setIsCreating] = useState<boolean>(false);
-
+  console.log(isCreating);
   const handleTemplateClick = ({
     title,
     initialContent,
