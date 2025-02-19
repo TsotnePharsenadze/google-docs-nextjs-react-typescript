@@ -1,8 +1,9 @@
-import Ruler from "@/components/Ruler";
-import Editor from "./Editor";
-import ToolbarComponent from "./Toolbar";
-import Navbar from "@/components/navbar/Navbar";
-import { Room } from "./Room";
+import { Id } from "@/convex/_generated/dataModel";
+import Document from "./document";
+import { getDocumentsByIdsAction } from "@/actions/getDocumentsAction";
+import { auth } from "@clerk/nextjs/server";
+import { preloadQuery } from "convex/nextjs";
+import { api } from "@/convex/_generated/api";
 
 export default async function DocumentsByIdPage({
   params,
@@ -12,18 +13,21 @@ export default async function DocumentsByIdPage({
   }>;
 }) {
   const { documentId } = await params;
+  const { getToken } = await auth();
+  const token =
+    (await getToken({
+      template: "convex",
+    })) ?? undefined;
 
-  return (
-    <Room>
-      <div className="min-h-screen bg-[FAFBFD]">
-        <div className="fixed left-0 right-0 top-0 bottom-0 z-50 h-[120px] print:hidden">
-          <Navbar />
-          <ToolbarComponent />
-        </div>
-        <div className="pt-[125px] print:pt-0">
-          <Editor />
-        </div>
-      </div>
-    </Room>
+  if (!token) {
+    throw new Error("Unauthorized");
+  }
+
+  const preloadedDocument = await preloadQuery(
+    api.documents.getDocumentById,
+    { id: documentId as Id<"documents"> },
+    { token }
   );
+
+  return <Document preLoadedDocument={preloadedDocument} />;
 }

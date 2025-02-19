@@ -65,7 +65,7 @@ const TemplateGallery = () => {
                   onClick={() => {
                     handleTemplateClick({
                       title: template.label,
-                      initialContent: "",
+                      initialContent: template.initialContent,
                     });
                   }}
                   disabled={isCreating}

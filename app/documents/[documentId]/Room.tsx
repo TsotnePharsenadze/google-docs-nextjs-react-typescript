@@ -10,7 +10,6 @@ import { useParams } from "next/navigation";
 import Loading from "@/components/Loading";
 import resolveUsersAction from "@/actions/resolveUsersAction";
 import { toast } from "sonner";
-import { getDocumentsByIds } from "@/convex/documents";
 import { Id } from "@/convex/_generated/dataModel";
 import { getDocumentsByIdsAction } from "@/actions/getDocumentsAction";
 
@@ -77,7 +76,10 @@ export function Room({ children }: { children: ReactNode }) {
         return await res.json();
       }}
     >
-      <RoomProvider id={params.documentId as string}>
+      <RoomProvider
+        id={params.documentId as string}
+        initialStorage={{ leftMargin: 56, rightMargin: 56 }}
+      >
         <ClientSideSuspense fallback={<Loading />}>
           {children}
         </ClientSideSuspense>

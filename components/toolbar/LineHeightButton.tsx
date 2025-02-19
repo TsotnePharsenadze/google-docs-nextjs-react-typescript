@@ -5,11 +5,6 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import {
-  AlignCenter,
-  AlignJustify,
-  AlignLeft,
-  AlignRight,
-  AlignVerticalDistributeStartIcon,
   ListCollapseIcon,
 } from "lucide-react";
 import { Button } from "../ui/button";

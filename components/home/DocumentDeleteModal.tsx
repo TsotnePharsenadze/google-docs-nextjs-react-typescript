@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2Icon, Trash2Icon } from "lucide-react";
+import { Loader2Icon } from "lucide-react";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -8,7 +8,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";

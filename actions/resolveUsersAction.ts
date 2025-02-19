@@ -1,14 +1,6 @@
 "use server";
 
-import { Id } from "@/convex/_generated/dataModel";
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { ConvexHttpClient } from "convex/browser";
-
-const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
-
-export async function getDocuments(id: Id<"documents">) {
-  return await convex;
-}
 
 export default async function resolveUsersAction() {
   const { sessionClaims } = await auth();
