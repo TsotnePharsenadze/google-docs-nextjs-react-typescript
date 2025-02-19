@@ -1,6 +1,6 @@
 "use client";
 
-import Editor from "./Editor";
+import Editor from "./editor";
 import ToolbarComponent from "./Toolbar";
 import Navbar from "@/components/navbar/Navbar";
 import { Room } from "./Room";
