@@ -124,3 +124,22 @@ export const getDocumentById = query({
     return await ctx.db.get(args.id);
   },
 });
+
+export const getDocumentsByIds = query({
+  args: { ids: v.array(v.id("documents")) },
+  handler: async (ctx, args) => {
+    const documents = [];
+    for (let id of args.ids) {
+      const document = await ctx.db.get(id);
+      if (document) {
+        documents.push({ id: document._id, name: document.title });
+      } else {
+        documents.push({
+          id,
+          name: "[Either Document Is Deleted or Privated]",
+        });
+      }
+    }
+    return documents;
+  },
+});

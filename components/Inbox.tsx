@@ -23,7 +23,11 @@ function InboxList() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="relative focus:outline-none focus:border-none outline-none"
+        >
           <Bell className="size-12" />
           {inboxNotifications?.length > 0 && (
             <span className="absolute right-[3px] -top-[2px] text-sm text-sky-500">

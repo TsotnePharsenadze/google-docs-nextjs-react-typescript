@@ -10,6 +10,9 @@ import { useParams } from "next/navigation";
 import Loading from "@/components/Loading";
 import resolveUsersAction from "@/actions/resolveUsersAction";
 import { toast } from "sonner";
+import { getDocumentsByIds } from "@/convex/documents";
+import { Id } from "@/convex/_generated/dataModel";
+import { getDocumentsByIdsAction } from "@/actions/getDocumentsAction";
 
 interface User {
   id: string;
@@ -52,7 +55,17 @@ export function Room({ children }: { children: ReactNode }) {
         }
         return filteredUsers.map((user) => user.id);
       }}
-      resolveRoomsInfo={() => []}
+      resolveRoomsInfo={async ({ roomIds }) => {
+        const documents = await getDocumentsByIdsAction(
+          roomIds as Id<"documents">[]
+        );
+        console.log(documents);
+
+        return documents.map((document) => ({
+          id: document.id,
+          name: document.name,
+        }));
+      }}
       throttle={16}
       authEndpoint={async () => {
         const endpoint = "/api/liveblocks-sync";
