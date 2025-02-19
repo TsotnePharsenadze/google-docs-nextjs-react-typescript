@@ -25,17 +25,16 @@ function AvatarList() {
         <AvatarElement
           key={currentUser.connectionId}
           name={currentUser.info.name}
-          avatar={currentUser.info.avatar}
+          avatar={""}
           index={1}
         />
       )}
       {users.map((user, index) => {
-        console.log(user?.info?.avatar);
         return (
           <AvatarElement
             key={user.connectionId}
             name={user.info.name}
-            avatar={user.info.avatar}
+            avatar={""}
             index={index + 1}
           />
         );
@@ -63,7 +62,7 @@ function AvatarElement({
       onMouseLeave={() => setHovered(false)}
     >
       {hovered && (
-        <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 shadow-lg">
+        <div className="absolute top-12 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 shadow-lg">
           {name ?? "Anon-user"}
         </div>
       )}

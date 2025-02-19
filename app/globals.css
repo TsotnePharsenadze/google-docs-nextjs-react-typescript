@@ -292,3 +292,7 @@ body {
     display: none;
   }
 }
+
+[data-radix-popper-content-wrapper] {
+  z-index: 1111111 !important;
+}

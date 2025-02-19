@@ -38,6 +38,7 @@ import { getControlKeyEmoji } from "@/lib/utils";
 import { useEditorStore } from "@/store/use-editor-store";
 import { OrganizationSwitcher, UserButton } from "@clerk/clerk-react";
 import Avatar from "../../app/documents/[documentId]/AvatarList";
+import Inbox from "../Inbox";
 
 const Navbar = () => {
   const { editor } = useEditorStore();
@@ -282,6 +283,7 @@ const Navbar = () => {
       </div>
       <div className="flex gap-2 p-2 items-center">
         <Avatar />
+        <Inbox />
         <OrganizationSwitcher />
         <UserButton />
       </div>

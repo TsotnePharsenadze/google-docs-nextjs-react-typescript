@@ -54,7 +54,15 @@ export function Room({ children }: { children: ReactNode }) {
       }}
       resolveRoomsInfo={() => []}
       throttle={16}
-      authEndpoint="/api/liveblocks-sync"
+      authEndpoint={async () => {
+        const endpoint = "/api/liveblocks-sync";
+        const roomId = params?.documentId as string;
+        const res = await fetch(endpoint, {
+          method: "POST",
+          body: JSON.stringify({ room: roomId }),
+        });
+        return await res.json();
+      }}
     >
       <RoomProvider id={params.documentId as string}>
         <ClientSideSuspense fallback={<Loading />}>
