@@ -21,6 +21,17 @@ Real-time Collaborative document editing platform.
 - **Customizable UI** 🎨  
   Shadcn components for a sleek and responsive UI.
 
+## .env.local
+```
+# Deployment used by `npx convex dev`
+CONVEX_DEPLOYMENT=
+NEXT_PUBLIC_CONVEX_URL=
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+NEXT_PUBLIC_LIVEBLOCKS_KEY=
+LIVEBLOCKS_SECRET_KEY=
+```
+
 ## Technology Stack 🛠️
 
 - React ⚛️
@@ -30,6 +41,7 @@ Real-time Collaborative document editing platform.
 - Convex 💥
 - TailwindCSS 🎨
 - ShadCN 🎭
+- Liveblocks 🔬
 - Clerk 🔑
 
 ## Desktop Screenshots 📸
